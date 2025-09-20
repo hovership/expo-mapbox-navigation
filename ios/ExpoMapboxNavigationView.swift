@@ -58,6 +58,7 @@ class ExpoMapboxNavigationViewController: UIViewController {
     var currentCustomRasterSourceUrl: String? = nil
     var currentPlaceCustomRasterLayerAbove: String? = nil
     var currentDisableAlternativeRoutes: Bool? = nil
+    var currentHideBottomBar: Bool? = nil
     var isUsingRouteMatchingApi: Bool = false
     var vehicleMaxHeight: Double? = nil
     var vehicleMaxWidth: Double? = nil
@@ -245,6 +246,11 @@ class ExpoMapboxNavigationViewController: UIViewController {
         update()
     }
 
+    func setHideBottomBar(hideBottomBar: Bool?){
+        currentHideBottomBar = hideBottomBar
+        update()
+    }
+
     func recenterMap(){
         let navigationMapView = navigationViewController?.navigationMapView
         navigationMapView?.navigationCamera.update(cameraState: .following)
@@ -411,6 +417,11 @@ class ExpoMapboxNavigationViewController: UIViewController {
         navigationViewController.showsContinuousAlternatives = currentDisableAlternativeRoutes != true
         navigationViewController.usesNightStyleWhileInTunnel = false
         navigationViewController.automaticallyAdjustsStyleForTimeOfDay = false
+
+        // Hide bottom bar if requested
+        if currentHideBottomBar == true {
+            navigationViewController.showsBottomBarNavigation = false
+        }
 
         let navigationMapView = navigationViewController.navigationMapView
         navigationMapView!.puckType = .puck2D(.navigationDefault)

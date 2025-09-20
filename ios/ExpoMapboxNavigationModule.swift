@@ -79,6 +79,10 @@ public class ExpoMapboxNavigationModule: Module {
         view.controller.setDisableAlternativeRoutes(disableAlternativeRoutes: disableAlternativeRoutes)
       }
 
+      Prop("hideBottomBar") { (view: ExpoMapboxNavigationView, hideBottomBar: Bool?) in
+        view.controller.setHideBottomBar(hideBottomBar: hideBottomBar)
+      }
+
       AsyncFunction("recenterMap") { (view: ExpoMapboxNavigationView) in
         view.controller.recenterMap()
       }

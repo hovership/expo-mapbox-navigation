@@ -53,6 +53,10 @@ export type ExpoMapboxNavigationViewProps = {
   customRasterSourceUrl?: string;
   placeCustomRasterLayerAbove?: string;
   disableAlternativeRoutes?: boolean;
+  /**
+   * Hide the bottom navigation bar in the navigation view (iOS and Android)
+   */
+  hideBottomBar?: boolean;
   onRouteProgressChanged?: (event: { nativeEvent: ProgressEvent }) => void;
   onCancelNavigation?: () => void;
   onWaypointArrival?: (event: {

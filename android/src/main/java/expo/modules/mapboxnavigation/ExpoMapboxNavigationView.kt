@@ -124,6 +124,7 @@ class ExpoMapboxNavigationView(context: Context, appContext: AppContext) :
     private var currentCustomRasterSourceUrl: String? = null
     private var currentPlaceCustomRasterLayerAbove: String? = null
     private var currentDisableAlternativeRoutes: Boolean? = null
+    private var currentHideBottomBar: Boolean? = null
     private var vehicleMaxHeight: Double? = null
     private var vehicleMaxWidth: Double? = null
 
@@ -849,6 +850,14 @@ class ExpoMapboxNavigationView(context: Context, appContext: AppContext) :
         )
         mapboxNavigation?.setNavigationRoutes(routes)
         mapboxNavigation?.startTripSession(withForegroundService = false)
+
+        // Hide or show the bottom bar based on the hideBottomBar flag
+        if (currentHideBottomBar == true) {
+            tripProgressView.visibility = View.GONE
+        } else {
+            tripProgressView.visibility = View.VISIBLE
+        }
+
         navigationCamera.requestNavigationCameraToFollowing(
                 stateTransitionOptions =
                         NavigationCameraTransitionOptions.Builder()
@@ -947,6 +956,17 @@ class ExpoMapboxNavigationView(context: Context, appContext: AppContext) :
     fun setDisableAlternativeRoutes(disableAlternativeRoutes: Boolean?) {
         currentDisableAlternativeRoutes = disableAlternativeRoutes
         update()
+    }
+
+    @com.mapbox.navigation.base.ExperimentalPreviewMapboxNavigationAPI
+    fun setHideBottomBar(hideBottomBar: Boolean?) {
+        currentHideBottomBar = hideBottomBar
+        // Update visibility immediately if already navigating
+        if (hideBottomBar == true) {
+            tripProgressView.visibility = View.GONE
+        } else {
+            tripProgressView.visibility = View.VISIBLE
+        }
     }
 
     fun recenterMap() {
