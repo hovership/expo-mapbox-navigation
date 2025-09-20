@@ -420,7 +420,8 @@ class ExpoMapboxNavigationViewController: UIViewController {
 
         // Hide bottom bar if requested
         if currentHideBottomBar == true {
-            navigationViewController.showsBottomBarNavigation = false
+            // Hide the bottom banner view that contains trip progress
+            navigationViewController.navigationView.bottomBannerContainerView.isHidden = true
         }
 
         let navigationMapView = navigationViewController.navigationMapView
